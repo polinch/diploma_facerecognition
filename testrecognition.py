@@ -3,7 +3,7 @@ from PIL import Image
 from numba import jit, float32, int32
 
 
-STANDART_SIZE = (50, 50)
+STANDART_SIZE = (100, 100)
 STANDART_SHAPE = 3 * STANDART_SIZE[0] * STANDART_SIZE[1]
 
 
@@ -23,48 +23,48 @@ def image_to_array(filename):
 @jit(float32(int32))
 def face_matrix(count):
 
-    face_matr = np.zeros((count, STANDART_SHAPE))
+    face_matr = np.zeros((STANDART_SHAPE, count))
     for i in range(count):
-        face = image_to_array("image" + i + ".jpg")
+        face = image_to_array("image" + str(i) + ".jpg")
         for j in range(STANDART_SHAPE):
-            face_matr[i][j] = face[j]
+            face_matr[j][i] = face[0][j]
 
     return face_matr
 
 
 # the average face - normalized face matrix
 @jit(float32(int32, float32))
-def average_face(av_face, face_matrix):
+def average_face(av_face, face_matr):
 
-    count_of_face = face_matrix.shape[0]
-    for i in range(count_of_face):
-        for j in range(STANDART_SHAPE):
-            av_face[j] += face_matrix[i][j]
-            av_face[j] /= count_of_face
+    count_of_face = face_matr.shape[1]
+    for i in range(STANDART_SHAPE):
+        for j in range(count_of_face):
+            av_face[i] += face_matr[i][j]
+            av_face[i] /= count_of_face
 
-    for i in range(count_of_face):
-        for j in range(STANDART_SHAPE):
-            face_matrix[i][j] -= av_face[j]
+    for i in range(STANDART_SHAPE):
+        for j in range(count_of_face):
+            face_matr[i][j] -= av_face[i]
 
-    return face_matrix
+    return face_matr
 
 
 # calculate pca
 @jit(float32(int32, float32))
 def pca(temp_transp, face_matr):
 
-    for i in range(STANDART_SHAPE):
-        for j in range(face_matr.shape[0]):
+    for i in range(face_matr.shape[1]):
+        for j in range(STANDART_SHAPE):
             temp_transp[i][j] = face_matr[j][i]
 
-    cov_matr = np.matmul(face_matr, temp_transp)
+    cov_matr = np.matmul(temp_transp, face_matr)
 
     return cov_matr
 
 
-temp_faces = face_matrix(4)
-temp_average = np.zeros(STANDART_SHAPE)
-faces = average_face(temp_average, temp_faces)
-temp_tr = np.zeros((STANDART_SHAPE, 4))
-temp_cov = pca(temp_tr, faces)
-print(temp_cov.shape)
+test_faces = face_matrix(4)
+test_avface = np.zeros(STANDART_SHAPE)
+change_faces = average_face(test_avface, test_faces)
+test_transp = np.zeros((4, STANDART_SHAPE))
+test_cov = pca(test_transp, change_faces)
+print(test_cov.shape)
