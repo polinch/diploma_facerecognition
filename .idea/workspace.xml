@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="78a424f4-12e7-43dd-b621-6d5cf20ba6c3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/facerecognition.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/facerecognition.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/image1.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/image2.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image3.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/testrecognition.py" beforeDir="false" afterPath="$PROJECT_DIR$/testrecognition.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,10 +19,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/testrecognition.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
+            <state relative-caret-position="165">
+              <caret line="77" column="32" selection-start-line="77" selection-start-column="32" selection-end-line="77" selection-end-column="32" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
+                <element signature="e#236#444#0" />
+                <element signature="e#518#750#0" />
+                <element signature="e#870#1201#0" />
+                <element signature="e#1257#1755#0" />
               </folding>
             </state>
           </provider>
@@ -36,7 +42,6 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="UPDATE_TYPE" value="REBASE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
@@ -82,6 +87,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/testrecognition.py" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
@@ -158,10 +164,14 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/testrecognition.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
+        <state relative-caret-position="165">
+          <caret line="77" column="32" selection-start-line="77" selection-start-column="32" selection-end-line="77" selection-end-column="32" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#236#444#0" />
+            <element signature="e#518#750#0" />
+            <element signature="e#870#1201#0" />
+            <element signature="e#1257#1755#0" />
           </folding>
         </state>
       </provider>
