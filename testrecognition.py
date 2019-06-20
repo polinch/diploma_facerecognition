@@ -3,7 +3,7 @@ from PIL import Image
 from numba import jit, float32, int32
 
 
-STANDART_SIZE = (128, 128)
+STANDART_SIZE = (92, 112)
 STANDART_SHAPE = 2 * STANDART_SIZE[0] * STANDART_SIZE[1]
 
 
@@ -57,6 +57,7 @@ def pca(face_matr):
         for j in range(STANDART_SHAPE):
             temp_transp[i][j] = face_matr[j][i]
 
+
     cov_matr = np.matmul(temp_transp, face_matr)
     eigvals, eigvecs = np.linalg.eig(cov_matr)
 
@@ -80,7 +81,7 @@ def transform_new_face(face, face_matr, eigenvecs):
     for i in range(count):
         temp = eigenvecs[i, :]
         weight_vec[i] = np.matmul(temp, face)
-    print("Weight vec ", weight_vec)
+    # print("Weight vec ", weight_vec)
 
     # projected faces from training set into face space
     weight_matr = np.matmul(eigenvecs, face_matr)
@@ -129,8 +130,32 @@ class CalculatePCA(object):
         self.av_face = temp_result[1]
         self.face_matr_train = temp_result[0]
         self.eigvecs = pca(self.face_matr_train)
+        # write matrix pca in file
+        file = open('matr_pca.txt', 'w')
+        for i in range(self.eigvecs.shape[0]):
+            for j in range(self.eigvecs.shape[1]):
+                file.write(str(self.eigvecs[i][j]) + '\t')
+            file.write('\r\n')
+        file.close()
 
         return self.eigvecs
+
+    def pca_without_train(self, count_train, train_filename):
+        self.count_train_set = count_train
+        self.face_matr_train = face_matrix(count_train, train_filename)
+        temp_result = average_face(self.av_face, self.face_matr_train)
+        self.av_face = temp_result[1]
+        self.face_matr_train = temp_result[0]
+        temp_pca = np.genfromtxt('matr_pca.txt', dtype=np.float, delimiter='\t')
+        shape = self.face_matr_train.shape
+        shape_pca = temp_pca.shape
+        new_pca = np.zeros((shape[1], shape[0]))
+        for i in range(shape_pca[0]):
+            # тут -1, потому что записываем в файл пустую строку после последней строки матрицы с собственными векторами
+            for j in range(shape_pca[1] - 1):
+                new_pca[i][j] = temp_pca[i][j]
+        self.eigvecs = new_pca
+        return
 
     def transform_faces(self):
         # normalizing test image
@@ -141,7 +166,9 @@ class CalculatePCA(object):
         return result
 
 
-test = CalculatePCA(9, "train", "test4")
+test = CalculatePCA(2, 'train', 'test1')
 test.calc_pca()
-temp_test = test.transform_faces()
-print(temp_test)
+test.pca_without_train(9, 'train')
+temp = test.transform_faces()
+print(temp)
+
