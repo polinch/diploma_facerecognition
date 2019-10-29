@@ -5,7 +5,6 @@ path = "/home/polina/Рабочий стол/facedb3/"
 path_to_save = "/home/polina/Рабочий стол/new_faces/"
 os.chdir(path)
 
-# забираем все фоточки в одну папку, меням цвет, формат и имя файлов
 
 i = 0
 j = 0
